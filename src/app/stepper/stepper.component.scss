@@ -1,18 +1,20 @@
-.container {
-	margin: 40px 0 0 150px;
+:host {
 	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	margin-top: 16px;
+}
 
-	mat-vertical-stepper {
-		width: 500px;
-	}
+mat-vertical-stepper {
+	max-width: 100%;
 }
 
 .mat-radio-button {
 	padding: 10px 0;
 }
 
-.mat-radio-button ~ .mat-radio-button {
-	margin-left: 16px;
+.mat-radio-button {
+	margin-right: 16px;
 }
 
 mat-form-field:first-of-type {
@@ -32,6 +34,7 @@ mat-form-field:first-of-type {
 	align-content: center;
 	align-items: center;
 	height: 60px;
+	flex-wrap: wrap;
 }
 
 .checkbox {
@@ -40,12 +43,12 @@ mat-form-field:first-of-type {
 
 .right-side {
 	margin: 24px;
+	min-width: 300px;
 }
 
-.formState {
+.form-state {
 	padding: 20px;
 	border: 1px solid black;
-	width: 400px;
 	margin-top: 40px;
 }
 
