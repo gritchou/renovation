@@ -31,6 +31,8 @@ export function furnituresValidator(control: FormGroup): ValidationErrors | null
 export function sizeValidator(control: FormGroup): ValidationErrors | null {
 	const length = control.get('length').value;
 	const width = control.get('width').value;
+	console.log({ length });
+	console.log({ width });
 	return (length && width) ? null : { size: true };
 }
 
@@ -39,18 +41,15 @@ export function sizeValidator(control: FormGroup): ValidationErrors | null {
 	templateUrl: './stepper.component.html',
 	styleUrls: ['./stepper.component.scss']
 })
-export class StepperComponent implements OnInit, AfterViewInit {
+export class StepperComponent implements OnInit {
 
 	firstStepForm: FormGroup;
 	sizeStepForm: FormGroup;
 	furnitureStepForm: FormGroup;
 	groundStepForm: FormGroup;
 
-	displayPrice = false;
 	displayError = false;
-
-	// Reference firstNameInput variable inside Component
-	@ViewChild('groundStep', { static: false }) groundStepElement: MatStep;
+	validated = false;
 
 	constructor(
 		private formBuilder: FormBuilder,
@@ -72,11 +71,6 @@ export class StepperComponent implements OnInit, AfterViewInit {
 		this.groundStepForm = this.formBuilder.group({
 			ground: ['parquet', Validators.required],
 		});
-	}
-
-	ngAfterViewInit() {
-		console.log('Hello ', this.groundStepElement.interacted);
-		// this.groundStepElement.nativeElement.innerHTML = 'DOM updated succesfully!!!';
 	}
 
 	// See algorythm in README.md
@@ -109,25 +103,21 @@ export class StepperComponent implements OnInit, AfterViewInit {
 		const sizeStep = this.sizeStepForm.valid && !!this.sizeStepForm.get('length').value && !!this.sizeStepForm.get('width').value;
 		const furnituresStep = this.furnitureStepForm.valid;
 		const groundStep = this.groundStepForm.valid;
-		console.log({ firstStep });
-		console.log({ sizeStep });
-		console.log({ furnituresStep });
-		console.log({ groundStep });
-		console.log((firstStep && sizeStep || !firstStep) && furnituresStep && groundStep);
-		return (firstStep && sizeStep || !firstStep) && furnituresStep && groundStep;
+		// console.log({ firstStep });
+		// console.log({ sizeStep });
+		// console.log({ furnituresStep });
+		// console.log({ groundStep });
+		// console.log('priceFound()', (firstStep && sizeStep || !firstStep) && furnituresStep && groundStep);
+		const priceFound = (firstStep && sizeStep || !firstStep) && furnituresStep && groundStep;
+		if (!priceFound) {
+			this.displayError = true;
+			return;
+		}
+		this.displayError = false;
+		return priceFound;
 	}
 
 	estimate() {
-		if (this.priceFound) {
-			this.displayError = false;
-			this.displayPrice = true;
-		} else {
-			this.displayError = true;
-			this.displayPrice = false;
-		}
-	}
-
-	get priceDisplayed() {
-		return this.displayPrice;
+		this.validated = true;
 	}
 }
