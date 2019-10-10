@@ -31,8 +31,6 @@ export function furnituresValidator(control: FormGroup): ValidationErrors | null
 export function sizeValidator(control: FormGroup): ValidationErrors | null {
 	const length = control.get('length').value;
 	const width = control.get('width').value;
-	console.log({ length });
-	console.log({ width });
 	return (length && width) ? null : { size: true };
 }
 
@@ -48,7 +46,6 @@ export class StepperComponent implements OnInit {
 	furnitureStepForm: FormGroup;
 	groundStepForm: FormGroup;
 
-	displayError = false;
 	validated = false;
 
 	constructor(
@@ -98,26 +95,11 @@ export class StepperComponent implements OnInit {
 		return DEBUG;
 	}
 
-	get priceFound(): boolean {
-		const firstStep = this.firstStepForm.get('answer').value;
-		const sizeStep = this.sizeStepForm.valid && !!this.sizeStepForm.get('length').value && !!this.sizeStepForm.get('width').value;
-		const furnituresStep = this.furnitureStepForm.valid;
-		const groundStep = this.groundStepForm.valid;
-		// console.log({ firstStep });
-		// console.log({ sizeStep });
-		// console.log({ furnituresStep });
-		// console.log({ groundStep });
-		// console.log('priceFound()', (firstStep && sizeStep || !firstStep) && furnituresStep && groundStep);
-		const priceFound = (firstStep && sizeStep || !firstStep) && furnituresStep && groundStep;
-		if (!priceFound) {
-			this.displayError = true;
-			return;
-		}
-		this.displayError = false;
-		return priceFound;
-	}
-
 	estimate() {
 		this.validated = true;
+	}
+
+	get displayPrice() {
+		return this.validated && (!this.firstStepForm.get('answer').value || this.sizeStepForm.valid)
 	}
 }

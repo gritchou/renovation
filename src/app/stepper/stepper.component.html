@@ -75,8 +75,8 @@
 		</mat-step>
 	</mat-vertical-stepper>
 	<div class="right-side">
-		<span class="price" *ngIf="displayPrice">{{ getPrice() | number: '1.2-2' : 'fr-FR' }} €</span>
-		<div *ngIf="displayError" class="error"><span>Complétez toutes les étapes pour afficher votre estimation</span></div>
+		<span class="price" *ngIf="displayPrice">{{ getPrice() | number:'1.2-2' : 'fr-FR' }} €</span>
+		<div *ngIf="validated && !displayPrice" class="error"><span>Complétez toutes les étapes pour afficher votre estimation</span></div>
 		<div class="formState" *ngIf="displayStates">
 			<p>Step 1: {{ firstStepForm.value | json }}</p>
 			<p>Step 2: <span *ngIf="!firstStepForm.get('answer').value">disabled</span><span *ngIf="firstStepForm.get('answer').value">Valid ? {{ sizeStepForm.valid }} {{ sizeStepForm.value | json }}</span></p>
