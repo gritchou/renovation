@@ -100,6 +100,6 @@ export class StepperComponent implements OnInit {
 	}
 
 	get displayPrice() {
-		return this.validated && (!this.firstStepForm.get('answer').value || this.sizeStepForm.valid)
+		return this.validated && (!this.firstStepForm.get('answer').value || this.sizeStepForm.valid);
 	}
 }
