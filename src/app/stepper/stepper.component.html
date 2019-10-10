@@ -21,6 +21,7 @@
 			label="Saisissez la longueur et la largeur de la pièce"
 			[stepControl]="sizeStepForm"
 			[formGroup]="sizeStepForm"
+			errorMessage="Remplissez les deux champs"
 			*ngIf="firstStepForm.get('answer').value">
 			<mat-form-field>
 				<input matInput placeholder="Longueur (cm)" formControlName="length">

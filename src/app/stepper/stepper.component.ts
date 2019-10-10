@@ -28,6 +28,12 @@ export function furnituresValidator(control: FormGroup): ValidationErrors | null
 	return (bathtub || cabinet || synk) ? null : { furnitures: true } ;
 }
 
+export function sizeValidator(control: FormGroup): ValidationErrors | null {
+	const length = control.get('length').value;
+	const width = control.get('width').value;
+	return (length && width) ? null : { size: true };
+}
+
 @Component({
 	selector: 'app-stepper',
 	templateUrl: './stepper.component.html',
@@ -57,7 +63,7 @@ export class StepperComponent implements OnInit, AfterViewInit {
 		this.sizeStepForm = this.formBuilder.group({
 			length: ['', Validators.pattern('[0-9]*')],
 			width: ['', Validators.pattern('[0-9]*')],
-		});
+		}, { validators: sizeValidator });
 		this.furnitureStepForm = this.formBuilder.group({
 			bathtub: [false, Validators.required],
 			cabinet: [false, Validators.required],
