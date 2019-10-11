@@ -85,9 +85,8 @@ export class StepperComponent implements OnInit {
 			// tslint:disable-next-line:max-line-length
 			price += Number(this.sizeStepForm.get('length').value) * Number(this.sizeStepForm.get('width').value) * GROUND_EUROS_PRICE[this.groundStepForm.get('ground').value] / (100 * 100);
 		} else {
-			price += 2000; // Don't know size
+			price += GROUND_EUROS_PRICE.basis; // Don't know size
 		}
-
 		return price;
 	}
 
