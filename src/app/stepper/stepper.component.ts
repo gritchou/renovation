@@ -7,15 +7,15 @@ import { ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 
 const FURNITURES_EUROS_PRICE = {
 	bathtub: 1000,
-	synk: 100,
+	sink: 100,
 	cabinet: 250
 };
 
-const GROUND_EUROS_PRICE = {
+const FLOOR_EUROS_PRICE = {
 	basis: 2000,
 	parquet: 25,
-	carrelage: 15,
-	beton: 40
+	tiles: 15,
+	concrete: 40
 };
 
 // Set to true to display FormGroups states as json objects
@@ -24,8 +24,8 @@ const DEBUG = false;
 export function furnituresValidator(control: FormGroup): ValidationErrors | null {
 	const bathtub = control.get('bathtub').value;
 	const cabinet = control.get('cabinet').value;
-	const synk = control.get('synk').value;
-	return (bathtub || cabinet || synk) ? null : { furnitures: true } ;
+	const sink = control.get('sink').value;
+	return (bathtub || cabinet || sink) ? null : { furnitures: true } ;
 }
 
 export function sizeValidator(control: FormGroup): ValidationErrors | null {
@@ -44,7 +44,7 @@ export class StepperComponent implements OnInit {
 	firstStepForm: FormGroup;
 	sizeStepForm: FormGroup;
 	furnitureStepForm: FormGroup;
-	groundStepForm: FormGroup;
+	floorStepForm: FormGroup;
 
 	validated = false;
 
@@ -63,10 +63,10 @@ export class StepperComponent implements OnInit {
 		this.furnitureStepForm = this.formBuilder.group({
 			bathtub: [false, Validators.required],
 			cabinet: [false, Validators.required],
-			synk: [false, Validators.required],
+			sink: [false, Validators.required],
 		}, { validators: furnituresValidator });
-		this.groundStepForm = this.formBuilder.group({
-			ground: ['parquet', Validators.required],
+		this.floorStepForm = this.formBuilder.group({
+			floor: ['parquet', Validators.required],
 		});
 	}
 
@@ -83,9 +83,9 @@ export class StepperComponent implements OnInit {
 				return undefined;
 			}
 			// tslint:disable-next-line:max-line-length
-			price += Number(this.sizeStepForm.get('length').value) * Number(this.sizeStepForm.get('width').value) * GROUND_EUROS_PRICE[this.groundStepForm.get('ground').value] / (100 * 100);
+			price += Number(this.sizeStepForm.get('length').value) * Number(this.sizeStepForm.get('width').value) * FLOOR_EUROS_PRICE[this.floorStepForm.get('floor').value] / (100 * 100);
 		} else {
-			price += GROUND_EUROS_PRICE.basis; // Don't know size
+			price += FLOOR_EUROS_PRICE.basis; // Don't know size
 		}
 		return price;
 	}

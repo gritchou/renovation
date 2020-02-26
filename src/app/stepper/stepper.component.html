@@ -1,86 +1,86 @@
 
 <mat-vertical-stepper #stepper>
 	<mat-step
-		label="Connaissez-vous les dimensions de la salle de bain à rénover ?"
+		label="Do you know the dimensions of the bathroom to renovate?"
 		[stepControl]="firstStepForm"
 		[formGroup]="firstStepForm"
 		required>
 		<mat-radio-group aria-label="Select an option" formControlName="answer">
 			<mat-radio-button [value]="true">
-				Oui
+				Yes
 			</mat-radio-button>
 			<mat-radio-button [value]="false">
-				Non
+				No
 			</mat-radio-button>
 		</mat-radio-group>
 		<div>
-			<button mat-raised-button matStepperNext>Etape suivante</button>
+			<button mat-raised-button matStepperNext>Next Step</button>
 		</div>
 	</mat-step>
 	<mat-step
-		label="Saisissez la longueur et la largeur de la pièce"
+		label="Enter the length and width of the room"
 		[stepControl]="sizeStepForm"
 		[formGroup]="sizeStepForm"
-		errorMessage="Remplissez les deux champs"
+		errorMessage="Fill in both fields"
 		*ngIf="firstStepForm.get('answer').value">
 		<mat-form-field>
-			<input matInput placeholder="Longueur (cm)" formControlName="length">
+			<input matInput placeholder="Length (cm)" formControlName="length">
 		</mat-form-field>
 		<mat-form-field>
-			<input matInput placeholder="Largeur (cm)" formControlName="width">
+			<input matInput placeholder="Width (cm)" formControlName="width">
 		</mat-form-field>
 		<div class="raised-button-container">
-			<button mat-raised-button matStepperPrevious>Etape précédente</button>
-			<button mat-raised-button matStepperNext>Etape suivante</button>
+			<button mat-raised-button matStepperPrevious>Previous Step</button>
+			<button mat-raised-button matStepperNext>Next Step</button>
 		</div>
 	</mat-step>
 	<mat-step
-		label="Quels équipements désirez-vous installer ?"
+		label="What furniture do you want to install?"
 		[stepControl]="furnitureStepForm"
 		[formGroup]="furnitureStepForm"
-		errorMessage="Cochez au moins une case"
+		errorMessage="Check at least one box"
 		required>
 		<section class="checkbox-container">
-			<mat-checkbox class="checkbox" formControlName="bathtub">Baignoire</mat-checkbox>
-			<mat-checkbox class="checkbox" formControlName="synk">Lavabo</mat-checkbox>
-			<mat-checkbox class="checkbox" formControlName="cabinet">Meuble</mat-checkbox>
+			<mat-checkbox class="checkbox" formControlName="bathtub">Bathtub</mat-checkbox>
+			<mat-checkbox class="checkbox" formControlName="sink">Sink</mat-checkbox>
+			<mat-checkbox class="checkbox" formControlName="cabinet">Cabinet</mat-checkbox>
 		</section>
-		<mat-error *ngIf="!furnitureStepForm.pristine && !furnitureStepForm.valid">Cochez au moins une case</mat-error>
+		<mat-error *ngIf="!furnitureStepForm.pristine && !furnitureStepForm.valid">Check at least one box</mat-error>
 		<div class="raised-button-container">
-			<button mat-raised-button matStepperPrevious>Etape précédente</button>
-			<button mat-raised-button matStepperNext>Etape suivante</button>
+			<button mat-raised-button matStepperPrevious>Previous Step</button>
+			<button mat-raised-button matStepperNext>Next Step</button>
 		</div>
 	</mat-step>
 	<mat-step
-		label="Quel type de sol désirez-vous installer ?"
-		[stepControl]="groundStepForm"
-		[formGroup]="groundStepForm"
+		label="What type of floor do you want to install?"
+		[stepControl]="floorStepForm"
+		[formGroup]="floorStepForm"
 		required
-		#groundStep>
-		<mat-radio-group aria-label="Select an option" formControlName="ground">
+		#floorStep>
+		<mat-radio-group aria-label="Select an option" formControlName="floor">
 			<mat-radio-button [value]="'parquet'">
 				Parquet
 			</mat-radio-button>
-			<mat-radio-button [value]="'carrelage'">
-				Carrelage
+			<mat-radio-button [value]="'tiles'">
+				Tiles
 			</mat-radio-button>
-			<mat-radio-button [value]="'beton'">
-				Béton ciré
+			<mat-radio-button [value]="'concrete'">
+				Waxed concrete
 			</mat-radio-button>
 		</mat-radio-group>
 		<div class="raised-button-container">
-			<button mat-raised-button matStepperPrevious>Etape précédente</button>
-			<button mat-raised-button color="primary" (click)="estimate()">Estimer !</button>
+			<button mat-raised-button matStepperPrevious>Previous Step</button>
+			<button mat-raised-button color="primary" (click)="estimate()">Estimate!</button>
 		</div>
 	</mat-step>
 </mat-vertical-stepper>
 <div class="right-side">
 	<span class="price" *ngIf="displayPrice">{{ getPrice() | number:'1.2-2' : 'fr-FR' }} €</span>
-	<div *ngIf="validated && !displayPrice" class="error"><span>Complétez toutes les étapes pour afficher votre estimation</span></div>
+	<div *ngIf="validated && !displayPrice" class="error"><span>Complete all steps to display your estimate</span></div>
 	<div class="form-state" *ngIf="displayStates">
 		<p>Step 1: {{ firstStepForm.value | json }}</p>
 		<p>Step 2: <span *ngIf="!firstStepForm.get('answer').value">disabled</span><span *ngIf="firstStepForm.get('answer').value">Valid ? {{ sizeStepForm.valid }} {{ sizeStepForm.value | json }}</span></p>
 		<p>Step 3: {{ furnitureStepForm.value | json }}</p>
-		<p>Step 4: {{ groundStepForm.value | json }}</p>
+		<p>Step 4: {{ floorStepForm.value | json }}</p>
 	</div>
 </div>

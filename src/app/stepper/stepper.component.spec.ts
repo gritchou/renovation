@@ -56,11 +56,11 @@ describe('StepperComponent', () => {
 		expect(component.getPrice()).toEqual(2000);
 	});
 
-	it('should find price of 240 for 3 meters * 2 meters of beton', () => {
+	it('should find price of 240 for 3 meters * 2 meters of concrete', () => {
 		component.firstStepForm.get('answer').setValue(true);
 		component.sizeStepForm.get('length').setValue(300);
 		component.sizeStepForm.get('width').setValue(200);
-		component.groundStepForm.get('ground').setValue('beton');
+		component.floorStepForm.get('floor').setValue('concrete');
 		expect(component.getPrice()).toEqual(240);
 	});
 });
