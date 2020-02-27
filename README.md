@@ -26,19 +26,19 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 
 To display states of the survey, set `DEBUG = true` in stepper.component.ts
 
-## Survey workflow
+## Survey's workflow
 
-Here is the user workflow threw the survey:
+Here is the user's workflow threw the survey:
 
-![workflow](./img/survey.png)
+![workflow](https://mermaid.ink/img/eyJjb2RlIjoiZ3JhcGggVERcbiAgQVtEbyB5b3Uga25vdyB0aGUgZGltZW5zaW9ucyBvZiB0aGUgYmF0aHJvb20gdG8gcmVub3ZhdGU_XSAtLT58WWVzfCBCW0xlbmd0aCArIFdpZHRoXVxuICBBIC0tPnxOb3wgQ1tGdXJuaXR1cmUgdG8gaW5zdGFsbDogQmF0aHR1YiwgU2luaywgQ2FiaW5ldF1cbiAgQiAtLT58VmFsaWRhdGlvbnwgQ1xuICBDIC0tPnxBdCBsZWFzdCBvbmUgY2hvaWNlIHZhbGlkYXRlZCwgZXJyb3IgaWYgbm90fCBEW0Zsb29yaW5nOiBQYXJxdWV0LCBUaWxlcywgV2F4ZWQgY29uY3JldGVdXG4gIEQgLS0-fFVuaXF1ZSBjaG9pY2UsIGVycm9yIGlmIG5vdGhpbmcgc2VsZWN0ZWR8IEVbRXN0aW1hdGVdIiwibWVybWFpZCI6eyJ0aGVtZSI6ImRlZmF1bHQifSwidXBkYXRlRWRpdG9yIjpmYWxzZX0)
 
-## Algorythme d'estimation du prix
+## Estimate Algorythme
 
-- Prix baignoire = 1000 €
-- Prix lavabo = 100 €
-- Prix meuble = 250 €
-- Si dimensions de la pièce : Prix sol = Longueur (m) * largeur (m) * Prix matériau (m²) €
-- Si pas de  dimensions : Prix sol = 2000 €
-- Prix parquet = 25 € / m²
-- Prix carrelage = 15 € / m²
-- Prix béton ciré = 40 € / m²
+- Bathtub = 1000 €
+- Sink = 100 €
+- Cabinet = 250 €
+- Floor = If the room dimensions are known: length (m) * width (m) * chosen material price (m²) €
+- Floor = If the room dimensions are unknown: 2000 €
+- Parquet = 25 € / m²
+- Tiles = 15 € / m²
+- Waxed concrete = 40 € / m²
