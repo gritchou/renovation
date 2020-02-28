@@ -1,0 +1,30 @@
+{
+    "step1": {
+        "question": "Do you know the dimensions of the bathroom to renovate?"
+    },
+    "step2": {
+        "question": "Enter the length and width of the room",
+        "error": "Fill in both fields",
+        "lengthPlaceholder": "Length (cm)",
+        "widthPlaceholder": "Width (cm)"
+    },
+    "step3": {
+        "question": "What furniture do you want to install?",
+        "error": "Check at least one box",
+        "bathtub": "Bathtub",
+        "sink": "Sink",
+        "cabinet": "Cabinet"
+    },
+    "step4": {
+        "question": "What type of floor do you want to install?",
+        "parquet": "Parquet",
+        "tiles": "Tiles",
+        "concrete": "Waxed concrete"
+    },
+    "yes": "Yes",
+    "no": "No",
+    "next": "Next Step",
+    "previous": "Previous Step",
+    "error": "Complete all steps to display your estimate",
+    "estimate": "Estimate!"
+}

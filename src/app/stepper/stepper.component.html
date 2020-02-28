@@ -1,82 +1,82 @@
 
 <mat-vertical-stepper #stepper>
 	<mat-step
-		label="Do you know the dimensions of the bathroom to renovate?"
+		label="{{ 'step1.question' | translate }}"
 		[stepControl]="firstStepForm"
 		[formGroup]="firstStepForm"
 		required>
-		<mat-radio-group aria-label="Select an option" formControlName="answer">
+		<mat-radio-group formControlName="answer">
 			<mat-radio-button [value]="true">
-				Yes
+				{{ 'yes' | translate }}
 			</mat-radio-button>
 			<mat-radio-button [value]="false">
-				No
+				{{ 'no' | translate }}
 			</mat-radio-button>
 		</mat-radio-group>
 		<div>
-			<button mat-raised-button matStepperNext>Next Step</button>
+			<button mat-raised-button matStepperNext>{{ 'next' | translate }}</button>
 		</div>
 	</mat-step>
 	<mat-step
-		label="Enter the length and width of the room"
+		label="{{ 'step2.question' | translate }}"
 		[stepControl]="sizeStepForm"
 		[formGroup]="sizeStepForm"
-		errorMessage="Fill in both fields"
+		errorMessage="{{ 'step2.error' | translate }}"
 		*ngIf="firstStepForm.get('answer').value">
 		<mat-form-field>
-			<input matInput placeholder="Length (cm)" formControlName="length">
+			<input matInput placeholder="{{ 'step2.lengthPlaceholder' | translate }}" formControlName="length">
 		</mat-form-field>
 		<mat-form-field>
-			<input matInput placeholder="Width (cm)" formControlName="width">
+			<input matInput placeholder="{{ 'step2.widthPlaceholder' | translate }}" formControlName="width">
 		</mat-form-field>
 		<div class="raised-button-container">
-			<button mat-raised-button matStepperPrevious>Previous Step</button>
-			<button mat-raised-button matStepperNext>Next Step</button>
+			<button mat-raised-button matStepperPrevious>{{ 'previous' | translate }}</button>
+			<button mat-raised-button matStepperNext>{{ 'next' | translate }}</button>
 		</div>
 	</mat-step>
 	<mat-step
-		label="What furniture do you want to install?"
+		label="{{ 'step3.question' | translate }}"
 		[stepControl]="furnitureStepForm"
 		[formGroup]="furnitureStepForm"
-		errorMessage="Check at least one box"
+		errorMessage="{{ 'step3.question' | translate }}"
 		required>
 		<section class="checkbox-container">
-			<mat-checkbox class="checkbox" formControlName="bathtub">Bathtub</mat-checkbox>
-			<mat-checkbox class="checkbox" formControlName="sink">Sink</mat-checkbox>
-			<mat-checkbox class="checkbox" formControlName="cabinet">Cabinet</mat-checkbox>
+			<mat-checkbox class="checkbox" formControlName="bathtub">{{ 'step3.bathtub' | translate }}</mat-checkbox>
+			<mat-checkbox class="checkbox" formControlName="sink">{{ 'step3.sink' | translate }}</mat-checkbox>
+			<mat-checkbox class="checkbox" formControlName="cabinet">{{ 'step3.cabinet' | translate }}</mat-checkbox>
 		</section>
-		<mat-error *ngIf="!furnitureStepForm.pristine && !furnitureStepForm.valid">Check at least one box</mat-error>
+		<mat-error *ngIf="!furnitureStepForm.pristine && !furnitureStepForm.valid">{{ "step3.error" | translate }}</mat-error>
 		<div class="raised-button-container">
-			<button mat-raised-button matStepperPrevious>Previous Step</button>
-			<button mat-raised-button matStepperNext>Next Step</button>
+			<button mat-raised-button matStepperPrevious>{{ 'previous' | translate }}</button>
+			<button mat-raised-button matStepperNext translate>{{ 'next' | translate }}</button>
 		</div>
 	</mat-step>
 	<mat-step
-		label="What type of floor do you want to install?"
+		label="{{ 'step4.question' | translate }}"
 		[stepControl]="floorStepForm"
 		[formGroup]="floorStepForm"
 		required
 		#floorStep>
-		<mat-radio-group aria-label="Select an option" formControlName="floor">
+		<mat-radio-group formControlName="floor">
 			<mat-radio-button [value]="'parquet'">
-				Parquet
+				{{ 'step4.parquet' | translate }}
 			</mat-radio-button>
 			<mat-radio-button [value]="'tiles'">
-				Tiles
+				{{ 'step4.tiles' | translate }}
 			</mat-radio-button>
 			<mat-radio-button [value]="'concrete'">
-				Waxed concrete
+				{{ 'step4.concrete' | translate }}
 			</mat-radio-button>
 		</mat-radio-group>
 		<div class="raised-button-container">
-			<button mat-raised-button matStepperPrevious>Previous Step</button>
-			<button mat-raised-button color="primary" (click)="estimate()">Estimate!</button>
+			<button mat-raised-button matStepperPrevious>{{ 'previous' | translate }}</button>
+			<button mat-raised-button color="primary" (click)="estimate()">{{ 'estimate' | translate }}</button>
 		</div>
 	</mat-step>
 </mat-vertical-stepper>
 <div class="right-side">
 	<span class="price" *ngIf="displayPrice">{{ getPrice() | number:'1.2-2' : 'fr-FR' }} €</span>
-	<div *ngIf="validated && !displayPrice" class="error"><span>Complete all steps to display your estimate</span></div>
+	<div *ngIf="validated && !displayPrice" class="error"><span>{{ 'error' | translate }}</span></div>
 	<div class="form-state" *ngIf="displayStates">
 		<p>Step 1: {{ firstStepForm.value | json }}</p>
 		<p>Step 2: <span *ngIf="!firstStepForm.get('answer').value">disabled</span><span *ngIf="firstStepForm.get('answer').value">Valid ? {{ sizeStepForm.valid }} {{ sizeStepForm.value | json }}</span></p>

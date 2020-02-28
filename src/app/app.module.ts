@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { CdkStepperModule, STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -20,6 +23,11 @@ import localeFr from '@angular/common/locales/fr';
 
 registerLocaleData(localeFr, 'fr');
 
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(http: HttpClient) {
+    return new TranslateHttpLoader(http);
+}
+
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -28,8 +36,17 @@ registerLocaleData(localeFr, 'fr');
 	imports: [
 		BrowserModule,
 		BrowserAnimationsModule,
+		HttpClientModule,
 		FormsModule,
 		ReactiveFormsModule,
+        TranslateModule.forRoot({
+			loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            },
+            defaultLanguage: 'en',
+        }),
 		CdkStepperModule,
 		MatToolbarModule,
 		MatRadioModule,
