@@ -1,4 +1,4 @@
-# RenovationMan
+# Renovation
 
 This project is a demo of a survey that will help you renovate your bathroom. It uses  [Angular](https://angular.io/) and [Angular Material](https://material.angular.io/).
 
@@ -37,8 +37,8 @@ Here is the user's workflow threw the survey:
 - Bathtub = 1000 €
 - Sink = 100 €
 - Cabinet = 250 €
-- Floor = If the room dimensions are known: length (m) * width (m) * chosen material price (m²) €
-- Floor = If the room dimensions are unknown: 2000 €
+- Floor (If the room dimensions are known) = length (m) * width (m) * chosen material price (m²) €
+- Floor (If the room dimensions are unknown) = 2000 €
 - Parquet = 25 € / m²
 - Tiles = 15 € / m²
 - Waxed concrete = 40 € / m²
