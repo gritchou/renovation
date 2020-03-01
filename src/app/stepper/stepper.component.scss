@@ -62,3 +62,15 @@ mat-form-field:first-of-type {
 .error {
 	color: #f44336;
 }
+
+strong {
+	font-weight: 500;
+}
+
+.observable.form-state > p {
+	display: flex;
+}
+
+.observable.form-state > p > * {
+	flex: 1;
+}

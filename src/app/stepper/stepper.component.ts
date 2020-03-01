@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { combineLatest, Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
-import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
-import { MatStepper, MatStep } from '@angular/material/stepper';
-
-import { ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 
 const FURNITURES_EUROS_PRICE = {
 	bathtub: 1000,
@@ -19,7 +18,7 @@ const FLOOR_EUROS_PRICE = {
 };
 
 // Set to true to display FormGroups states as json objects
-const DEBUG = false;
+const DEBUG = true;
 
 export function furnituresValidator(control: FormGroup): ValidationErrors | null {
 	const bathtub = control.get('bathtub').value;
@@ -48,6 +47,15 @@ export class StepperComponent implements OnInit {
 
 	validated = false;
 
+	price: Observable<number>;
+	knownSize: Observable<boolean>;
+	width: Observable<number>;
+	length: Observable<number>;
+	area: Observable<number>;
+	unitFloorPrice: Observable<number>;
+	floorPrice: Observable<number>;
+	furnituresPrice: Observable<number>;
+
 	constructor(
 		private formBuilder: FormBuilder,
 	) { }
@@ -68,6 +76,42 @@ export class StepperComponent implements OnInit {
 		this.floorStepForm = this.formBuilder.group({
 			floor: ['parquet', Validators.required],
 		});
+
+		// Declare source observables
+		this.knownSize = this.firstStepForm.get('answer').valueChanges.pipe(
+			startWith(true)
+		);
+		
+		this.width = this.sizeStepForm.get('width').valueChanges;
+		this.length = this.sizeStepForm.get('length').valueChanges;
+
+		this.area = combineLatest(this.width, this.length).pipe(
+			startWith([0, 0]),
+			map(([w, l]) => w * l / 100 / 100)
+		);
+
+		this.unitFloorPrice = this.floorStepForm.get('floor').valueChanges.pipe(
+			startWith('parquet'),
+			map(type => FLOOR_EUROS_PRICE[type])
+		);
+
+		this.floorPrice = combineLatest(this.knownSize, this.unitFloorPrice, this.area).pipe(
+			map(([k, u, a]) => k ? u * a : 2000)
+		);
+
+		this.furnituresPrice = this.furnitureStepForm.valueChanges.pipe(
+			startWith({}),
+			map(checkboxes => Object.keys(checkboxes)
+				.filter(c => checkboxes[c])
+				.map(c => FURNITURES_EUROS_PRICE[c])
+				.reduce((a, b) => a + b, 0)
+			)
+		);
+
+		// Combine observables
+		this.price = combineLatest(this.floorPrice, this.furnituresPrice).pipe(
+			map(([floor, furnitures]) => floor + furnitures)
+		);
 	}
 
 	// See algorythm in README.md
